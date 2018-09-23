@@ -32,3 +32,15 @@ jobs:
             docker push osamagotji/node4circleci:latest
             docker push osamagotji/node4circleci:${CIRCLE_SHA1}
       - run: echo "Done by GoTSaMa"
+      - run: 
+          name: "Call to deploy to rancher via API"
+          command: | 
+            docker run --rm -it \
+              -e CATTLE_ACCESS_KEY="$CATTLE_ACCESS_KEY" \
+              -e CATTLE_SECRET_KEY="$CATTLE_SECRET_KEY" \
+              -e CATTLE_URL="$CATTLE_URL" \
+              etlweather/gaucho upgrade $RANCHER_EXAMPLE_NODEJS \
+              --imageUuid 'docker:osamagotji/node4circleci:latest' \
+              --batch_size 3 --start_first \
+              --auto_complete --timeout 600
+              / 
