@@ -23,12 +23,12 @@ jobs:
       - run:
           name: "Build docker image and push to GoTSaMa docker hub"
           command:
-            cp Dockerfile.test Dockerfile
-            echo copied
-            docker build -t osamagotji/node4circleci:latest .
-            echo buld-latest
-            docker build -t osamagotji/node4circleci:${CIRCLE_SHA1} .
-            echo build-sha1
-            docker push osamagotji/node4circleci:latest
+            cp Dockerfile.test Dockerfile && \
+            echo copied && \
+            docker build -t osamagotji/node4circleci:latest . && \
+            echo buld-latest && \
+            docker build -t osamagotji/node4circleci:${CIRCLE_SHA1} . && \
+            echo build-sha1 && \
+            docker push osamagotji/node4circleci:latest && \
             docker push osamagotji/node4circleci:${CIRCLE_SHA1}
       - run: echo "Done by GoTSaMa"
